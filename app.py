@@ -175,6 +175,39 @@ def pagos_agregar():
 
     return render_template("pagos/agregar.html")
 
+@app.route("/pagos/editar/<int:id>", methods=["GET", "POST"])
+def pagos_editar(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    if request.method == "POST":
+        id_socio = request.form["id_socio"]
+        id_plan = request.form["id_plan"]
+        fecha_inicio = request.form["fecha_inicio"]
+        fecha_fin = request.form["fecha_fin"]
+        monto = request.form["monto"]
+
+        cursor.execute("""
+            UPDATE Pago 
+            SET id_socio=%s, id_plan=%s, fecha_inicio=%s, fecha_fin=%s, monto=%s
+            WHERE id_pago=%s
+        """, (id_socio, id_plan, fecha_inicio, fecha_fin, monto, id))
+        
+        mysql.connection.commit()
+        return redirect(url_for("pagos_lista"))
+
+    cursor.execute("SELECT * FROM Pago WHERE id_pago=%s", (id,))
+    pago = cursor.fetchone()
+
+    return render_template("pagos/editar.html", pago=pago)
+
+@app.route("/pagos/eliminar/<int:id>")
+def pagos_eliminar(id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("DELETE FROM Pago WHERE id_pago=%s", (id,))
+    mysql.connection.commit()
+    return redirect(url_for("pagos_lista"))
+
+
 # ============================================================
 # CLASES (CRUD SIMPLE)
 # ============================================================
@@ -186,17 +219,56 @@ def clases_lista():
     clases = cursor.fetchall()
     return render_template("clases/lista.html", clases=clases)
 
+
 @app.route("/clases/agregar", methods=["GET", "POST"])
 def clases_agregar():
     if request.method == "POST":
         nombre = request.form["nombre_clase"]
+        descripcion = request.form["descripcion"]
+        cupo = request.form["cupo"]
 
         cursor = mysql.connection.cursor()
-        cursor.execute("INSERT INTO Clase (nombre_clase) VALUES (%s)", (nombre,))
+        cursor.execute(
+            "INSERT INTO Clase (nombre_clase, descripcion, cupo) VALUES (%s, %s, %s)",
+            (nombre, descripcion, cupo)
+        )
         mysql.connection.commit()
         return redirect(url_for("clases_lista"))
 
     return render_template("clases/agregar.html")
+
+
+
+@app.route("/clases/editar/<int:id>", methods=["GET", "POST"])
+def clases_editar(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    if request.method == "POST":
+        nombre = request.form["nombre_clase"]
+        descripcion = request.form["descripcion"]
+        cupo = request.form["cupo"]
+
+        cursor.execute("""
+            UPDATE Clase 
+            SET nombre_clase=%s, descripcion=%s, cupo=%s 
+            WHERE id_clase=%s
+        """, (nombre, descripcion, cupo, id))
+
+        mysql.connection.commit()
+        return redirect(url_for("clases_lista"))
+
+    cursor.execute("SELECT * FROM Clase WHERE id_clase=%s", (id,))
+    clase = cursor.fetchone()
+    return render_template("clases/editar.html", clase=clase)
+
+
+
+@app.route("/clases/eliminar/<int:id>")
+def clases_eliminar(id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("DELETE FROM Clase WHERE id_clase=%s", (id,))
+    mysql.connection.commit()
+    return redirect(url_for("clases_lista"))
 
 
 # =========================

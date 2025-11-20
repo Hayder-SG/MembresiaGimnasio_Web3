@@ -1,47 +1,46 @@
-<h1>Nuevo Socio</h1>
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Nuevo Pago</h1>
 
 <nav>
-    <a href="{{ url_for('socios_lista') }}">Lista socios</a>
+    <a href="{{ url_for('pagos_lista') }}">Lista de Pagos</a>
 </nav>
 
-<form action="{{ url_for('socios_agregar') }}" method="post">
+<form action="{{ url_for('pagos_agregar') }}" method="post">
 
     <div class="contenedor">
-        <h3>Datos Personales</h3>
+        <h3>Datos del Socio</h3>
 
         <div class="campo">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-        </div>
-
-        <div class="campo">
-            <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" required>
+            <label for="id_socio">ID Socio:</label>
+            <input type="number" id="id_socio" name="id_socio" required>
         </div>
     </div>
 
     <div class="contenedor">
-        <h3>Contacto</h3>
+        <h3>Plan Seleccionado</h3>
 
         <div class="campo">
-            <label for="email">Correo:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-
-        <div class="campo">
-            <label for="telefono">Teléfono:</label>
-            <input type="number" id="telefono" name="telefono" required>
+            <label for="id_plan">ID Plan:</label>
+            <input type="number" id="id_plan" name="id_plan" required>
         </div>
     </div>
 
-        <div class="contenedor">
-            <h3>Registro</h3>
+    <div class="contenedor">
+        <h3>Fechas</h3>
+
+        <div class="campo">
+            <label for="fecha_inicio">Fecha de Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" required>
         </div>
     </div>
 
     <div class="contenedor botones">
-        <button type="submit">Registrar</button>
+        <button type="submit">Registrar Pago</button>
         <button type="reset">Cancelar</button>
     </div>
 
 </form>
+
+{% endblock %}

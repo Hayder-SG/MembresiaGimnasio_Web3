@@ -1,34 +1,60 @@
 {% extends "base.html" %}
-
 {% block content %}
-<a href="{{ url_for('socios_lista') }}">Lista socios</a>
-<div class="container mt-4">
-    <h2 class="mb-4">Editar Socio</h2>
 
-    <form method="POST">
+<h1>Editar Pago</h1>
 
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" value="{{ socio.nombre }}" required>
+<nav>
+    <a href="{{ url_for('pagos_lista') }}">Lista de Pagos</a>
+</nav>
+
+<form action="{{ url_for('pagos_editar', id=pago.id_pago) }}" method="post">
+
+    <div class="contenedor">
+        <h3>Datos del Socio</h3>
+
+        <div class="campo">
+            <label for="id_socio">ID Socio:</label>
+            <input type="number" id="id_socio" name="id_socio" value="{{ pago.id_socio }}" required>
+        </div>
+    </div>
+
+    <div class="contenedor">
+        <h3>Plan Seleccionado</h3>
+
+        <div class="campo">
+            <label for="id_plan">ID Plan:</label>
+            <input type="number" id="id_plan" name="id_plan" value="{{ pago.id_plan }}" required>
+        </div>
+    </div>
+
+    <div class="contenedor">
+        <h3>Fechas</h3>
+
+        <div class="campo">
+            <label for="fecha_inicio">Fecha de Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" value="{{ pago.fecha_inicio }}" required>
         </div>
 
-        <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" class="form-control" value="{{ socio.apellido }}" required>
+        <div class="campo">
+            <label for="fecha_fin">Fecha Fin:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" value="{{ pago.fecha_fin }}" required>
         </div>
+    </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Correo:</label>
-            <input type="email" id="email" name="email" class="form-control" value="{{ socio.email }}" required>
+    <div class="contenedor">
+        <h3>Monto</h3>
+
+        <div class="campo">
+            <label for="monto">Monto:</label>
+            <input type="number" id="monto" name="monto" value="{{ pago.monto }}" required>
         </div>
+    </div>
 
-        <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono:</label>
-            <input type="text" id="telefono" name="telefono" class="form-control" value="{{ socio.telefono }}" required>
-        </div>
+    <div class="contenedor botones">
+        <button type="submit">Guardar Cambios</button>
+        <button type="reset">Cancelar</button>
+    </div>
 
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        <a href="{{ url_for('socios_lista') }}" class="btn btn-secondary">Cancelar</a>
-    </form>
-</div>
+</form>
+
 {% endblock %}

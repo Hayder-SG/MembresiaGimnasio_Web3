@@ -1,41 +1,43 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="container mt-4">
-    <h2>LISTA DE SOCIOS</h2>
-    
-    <nav>
-        <a href="{{ url_for('socios_agregar') }}">Agregar socios</a>
-    </nav>
 
+<h1>Lista de Clases</h1>
 
-    <table class="table table-striped"> 
-        <thead>
-            <tr>
-                <th>ID</th><th>Nombre</th><th>Apellido</th><th>Correo</th><th>Telefono</th><th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for s in socios %}
-            <tr>
-                <td>{{ s.id_socio }}</td>
-                <td>{{ s.nombre }}</td>
-                <td>{{ s.apellido }}</td>
-                <td>{{ s.email }}</td>
-                <td>{{ s.telefono }}</td>
-                <td>   
-                    <a href="{{ url_for('socios_editar', id=s.id_socio) }}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{{ url_for('socios_eliminar', id=s.id_socio) }}" class="btn btn-danger btn-sm">Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <nav>
-        <a href="{{ url_for('socios_lista') }}">listar socios</a> |
-        <a href="{{ url_for('planes_lista') }}">listar planes</a> |
-        <a href="{{ url_for('pagos_lista') }}">listar pagos</a> |
-        <a href="{{ url_for('clases_lista') }}">listar clases</a> |
-    </nav>
-</div>
-{% endblock  %}
+<nav>
+    <a href="{{ url_for('clases_agregar') }}">Nueva Clase</a>
+</nav>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre de la Clase</th>
+            <th>Descripcion</th>
+            <th>cupos</th>
+            <th>acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for c in clases %}
+        <tr>
+            <td>{{ c.id_clase }}</td>
+            <td>{{ c.nombre_clase }}</td>
+            <td>{{ c.descripcion }}</td>
+            <td>{{ c.cupo  }}</td>   
+            <td>
+                <a href="{{ url_for('clases_editar', id=c.id_clase) }}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{{ url_for('clases_eliminar', id=c.id_clase) }}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav>
+    <a href="{{ url_for('socios_lista') }}">listar socios</a> |
+    <a href="{{ url_for('planes_lista') }}">listar planes</a> |
+    <a href="{{ url_for('pagos_lista') }}">listar pagos</a> |
+    <a href="{{ url_for('clases_lista') }}">listar clases</a> |
+</nav>
+
+{% endblock %}
