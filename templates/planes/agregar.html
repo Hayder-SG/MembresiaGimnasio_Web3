@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Nuevo Socio</h1>
+
+<nav>
+    <a href="{{ url_for('planes_lista') }}">Lista socios</a>
+</nav>
+
+<form action="{{ url_for('planes_agregar') }}" method="post">
+
+    <div class="contenedor">
+        <div class="campo">
+            <label for="nombre">Nombre plan:</label>
+            <input type="text" id="" name="nombre" required>
+        </div>
+
+        <div class="campo">
+            <label for="duracion_dias">Duración dias:</label>
+            <input type="number" id="" name="duracion_dias" required>
+        </div>
+
+        <div class="campo">
+            <label for="precio">Precio:</label>
+            <input type="number" id="" name="precio" step="0.01" required>
+        </div>
+    </div>
+
+    <div class="contenedor botones">
+        <button type="submit">Registrar</button>
+        <button type="reset">Cancelar</button>
+    </div>
+
+</form>
+{% endblock  %}

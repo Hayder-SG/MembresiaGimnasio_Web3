@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{{ url_for('planes_lista') }}">Lista socios</a>
+<div class="container mt-4">
+    <h2 class="mb-4">Editar planes</h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del plan:</label>
+            <input type="text" id="" name="nombre" class="form-control" value="{{ plan.nombre_plan }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="duracion" class="form-label">duracion_dias:</label>
+            <input type="number" id="" name="duracion" class="form-control" value="{{ plan.duracion_dias }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio:</label>
+            <input type="number" id="" name="precio" step="0.01" class="form-control" value="{{ plan.precio }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a href="{{ url_for('socios_lista') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

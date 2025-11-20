@@ -92,12 +92,12 @@ def planes_agregar():
     if request.method == "POST":
         nombre = request.form["nombre"]
         precio = request.form["precio"]
-        duracion = request.form["duracion"]
+        duracion_dias = request.form["duracion_dias"]
 
         cursor = mysql.connection.cursor()
         cursor.execute(
             "INSERT INTO PlanMembresia (nombre_plan, precio, duracion_dias) VALUES (%s,%s,%s)",
-            (nombre, precio, duracion),
+            (nombre, precio, duracion_dias),
         )
         mysql.connection.commit()
         return redirect(url_for("planes_lista"))
@@ -189,7 +189,7 @@ def clases_lista():
 @app.route("/clases/agregar", methods=["GET", "POST"])
 def clases_agregar():
     if request.method == "POST":
-        nombre = request.form["nombre"]
+        nombre = request.form["nombre_clase"]
 
         cursor = mysql.connection.cursor()
         cursor.execute("INSERT INTO Clase (nombre_clase) VALUES (%s)", (nombre,))
